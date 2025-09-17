@@ -17,7 +17,6 @@ while opcio != 0:
 
 
 
-
 pla
 for i in range(cantidad):
     lista += [plazas]
