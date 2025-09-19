@@ -1,16 +1,16 @@
-#creamos bus numero 1
-#bus lo creamos con id, las plazas, autoincrementar la id
 from bus import Autobuses
 from Cliente import Clientes
 buses = []
 clientes = []
 
+#funciones
 def validar_input_numerico(mensaje):
     while True:
         try:
             valor = int(input(mensaje))
-            if valor < 0:
+            if valor <= 0:
                 print("Por favor, introduce un número positivo.")
+                continue  
             return valor
         except ValueError:
             print("Error: Debes introducir un número entero válido.")
@@ -52,7 +52,7 @@ def mostrar_buses():
     print("Buses disponibles:")
     for bus in buses:
         print(f"ID Bus: {bus.get_id_bus()}, Plazas Totales: {bus.GetPlazasTotales()}, Plazas Vendidas: {bus.get_plazas_vendidas()}, Plazas Libres: {bus.GetPlazasTotales() - bus.get_plazas_vendidas()}")
-#entramos en el menu
+
 
 def comprovar_cliente(nombre_cliente, apellido_cliente):
     for cliente in clientes:
@@ -62,6 +62,7 @@ def comprovar_cliente(nombre_cliente, apellido_cliente):
             print("Cliente no encontrado. Por favor, regístrate primero.")
     
 
+#entramos en el menu
 opcion = -1
 while opcion != 0:
     menu()
@@ -69,7 +70,7 @@ while opcion != 0:
     if opcion == 1:
         añadir_bus()
         print("Bus añadido correctamente.")
-    elif opcion == 2:
+    elif opcion == 2:         #comprar billete
         if comprovar_buses():
             respuesta = ""
             while respuesta not in ['s', 'n']:
@@ -99,10 +100,8 @@ while opcion != 0:
                     print("Ya tienes un ticket comprado o no hay plazas disponibles.")
         else:
             print("No hay buses disponibles. Por favor, añade un bus primero.")  
-        #comprar billete
-    elif opcion == 3:
+    elif opcion == 3:        #devolucion billete
         if comprovar_buses():
-        #devolucion billete
             print("Introduce el nombre y apellido del cliente para devolver el billete: ")
             nombre_cliente = input("Nombre: ").lower()
             apellido_cliente = input("Apellido: ").lower()
@@ -110,27 +109,28 @@ while opcion != 0:
             if cliente is None:
                 print("Cliente no encontrado")
             else:
-                billete = cliente.getBillete()
-                bus = billete.getBus()
-                bus_billetes = bus.get_billetes()
+                if cliente.getBillete():
+                    billete = cliente.getBillete()
+                    bus = billete.getBus()
+                    bus_billetes = bus.get_billetes()
 
-                if billete in bus_billetes:
-                    if bus.devolver_billete(billete, bus):
-                        print("Billete devuelto correctamente")
+                    if billete in bus_billetes:
+                        if bus.devolver_billete(billete, bus):
+                            print("Billete devuelto correctamente")
+                        else:
+                            print("No se ha podido devolver el billete")
                     else:
-                        print("No se ha podido devolver el billete")
+                        print("No tienes un billete comprado")
                 else:
-                    print("No tienes un billete comprado")
+                    print("No hay buses disponibles. Por favor, añade un bus primero.")  
                 
         else:
             print("No hay buses disponibles. Por favor, añade un bus primero.")  
 
             
 
-    elif opcion == 4:
+    elif opcion == 4:        #estado de las plazas
         if comprovar_buses():
-
-        #estado de las plazas
             mostrar_buses()
         else:
             print("No hay buses disponibles. Por favor, añade un bus primero.")
