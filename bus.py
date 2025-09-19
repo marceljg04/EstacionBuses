@@ -82,6 +82,7 @@ class Autobuses:
             bus.eliminar_billete(billete)
             bus.set_plazas_vendidas(False)
             bus.set_plazas_libres(False)
+            billete.getCliente().devolverBillete()
             billete_vendido = True
         
         return billete_vendido

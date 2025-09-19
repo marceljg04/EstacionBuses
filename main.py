@@ -1,6 +1,6 @@
 #creamos bus numero 1
 #bus lo creamos con id, las plazas, autoincrementar la id
-from Bus import Autobuses
+from bus import Autobuses
 from Cliente import Clientes
 buses = []
 clientes = []
