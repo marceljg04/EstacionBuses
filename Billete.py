@@ -32,4 +32,4 @@ class Billete:
 
     # Metodos
     def __str__(self):
-        return f"Billete #{self.__id_billete} de {self.__cliente.nombre} {self.__cliente.apellido}"
+        return f"Billete #{self.__id_billete} de {self.__cliente.getNombre()} {self.__cliente.getApellido()}"
