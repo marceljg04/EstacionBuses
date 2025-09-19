@@ -54,6 +54,9 @@ class Autobuses:
     def get_plazas_libres(self):
         return self.__plazas_libres
     
+    def eliminar_billete(self, billete):
+        if billete in self.__billetes:
+            self.__billetes.remove(billete)
         
     @classmethod
     def get_cantidad_buses(cls):
@@ -76,7 +79,7 @@ class Autobuses:
     def devolver_billete(cls, billete, bus):
         billete_vendido = False
         if billete in cls.__billetes:
-            bus.get_billetes.remove(billete)
+            bus.eliminar_billete(billete)
             bus.set_plazas_vendidas(False)
             bus.set_plazas_libres(False)
             billete_vendido = True
