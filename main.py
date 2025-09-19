@@ -8,7 +8,7 @@ def validar_input_numerico(mensaje):
     while True:
         try:
             valor = int(input(mensaje))
-            if valor <= 0:
+            if valor < 0:
                 print("Por favor, introduce un número positivo.")
                 continue  
             return valor
