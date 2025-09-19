@@ -37,7 +37,9 @@ class Autobuses:
             self.__plazas_libres -= 1
         else:
             self.__plazas_libres += 1
-    
+            
+    def get_plazas_libres(self):
+        return self.__plazas_libres
     
         
     @classmethod
@@ -47,10 +49,11 @@ class Autobuses:
     @classmethod
     def comprar_billete(cls, bus, cliente):
         billete_comprado = False
-        if cls.__plazas_libres > 0:
+        if bus.get_plazas_libres() > 0:
             cls.__id_billete += 1
             billete = Billete(cls.__id_billete, cliente, bus)
             cls.__billetes.append(billete)
+            cliente.asignarBillete(billete)
             bus.set_plazas_vendidas(True)
             bus.set_plazas_libres(True)
             billete_comprado = True
