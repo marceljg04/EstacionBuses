@@ -5,15 +5,28 @@ metodos: getters, setters, venta billete, devolucion billete, estado de las plaz
 from Billete import Billete
 class Autobuses:
     __cantidad_buses = 0
-    __billetes = []
-    __id_billete = 0
+    
     def __init__(self, plazas_totales):
         self.__id_bus = Autobuses.__cantidad_buses
         self.SetPlazasTotales(plazas_totales)
         self.__plazas_libres = plazas_totales
         self.__plazas_vendidas = 0
         Autobuses.__cantidad_buses += 1
+        self.__billetes = []
+        self.__id_billete = 0
         
+    def set_billetes(self, billetes):
+        self.__billetes.append(billetes)
+    
+    def get_billetes(self):
+        return self.__billetes
+    
+    def set_id_billete(self):
+        self.__id_billete += 1
+        
+    def get_id_billete(self):
+        return self.__id_billete
+    
     def get_id_bus(self):
         return self.__id_bus
     
@@ -50,9 +63,9 @@ class Autobuses:
     def comprar_billete(cls, bus, cliente):
         billete_comprado = False
         if bus.get_plazas_libres() > 0:
-            cls.__id_billete += 1
-            billete = Billete(cls.__id_billete, cliente, bus)
-            cls.__billetes.append(billete)
+            billete = Billete(bus.get_id_billete(), cliente, bus)
+            bus.set_id_billete()
+            bus.set_billetes(billete)
             cliente.asignarBillete(billete)
             bus.set_plazas_vendidas(True)
             bus.set_plazas_libres(True)
@@ -63,7 +76,7 @@ class Autobuses:
     def devolver_billete(cls, billete, bus):
         billete_vendido = False
         if billete in cls.__billetes:
-            cls.__billetes.remove(billete)
+            bus.get_billetes.remove(billete)
             bus.set_plazas_vendidas(False)
             bus.set_plazas_libres(False)
             billete_vendido = True
