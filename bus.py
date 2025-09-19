@@ -9,10 +9,10 @@ class Autobuses:
     __id_billete = 0
     def __init__(self, plazas_totales):
         self.__id_bus = Autobuses.__cantidad_buses
-        self.set(plazas_totales)
+        self.SetPlazasTotales(plazas_totales)
         self.__plazas_libres = plazas_totales
         self.__plazas_vendidas = 0
-        Autobuses.cantidad_buses += 1
+        Autobuses.__cantidad_buses += 1
         
     def get_id_bus(self):
         return self.__id_bus
@@ -46,23 +46,24 @@ class Autobuses:
     
     @classmethod
     def comprar_billete(cls, bus, cliente):
+        billete_comprado = False
         if cls.__plazas_libres > 0:
             cls.__id_billete += 1
             billete = Billete(cls.__id_billete, cliente, bus)
             cls.__billetes.append(billete)
             bus.set_plazas_vendidas(True)
             bus.set_plazas_libres(True)
-            return True
-        else:
-            return False
+            billete_comprado = True
+        return billete_comprado
     
     @classmethod
     def devolver_billete(cls, billete, bus):
+        billete_vendido = False
         if billete in cls.__billetes:
             cls.__billetes.remove(billete)
             bus.set_plazas_vendidas(False)
             bus.set_plazas_libres(False)
-            return True
-        else:
-            return False
+            billete_vendido = True
+        
+        return billete_vendido
     
