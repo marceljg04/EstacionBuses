@@ -78,7 +78,7 @@ class Autobuses:
     @classmethod
     def devolver_billete(cls, billete, bus):
         billete_vendido = False
-        if billete in cls.__billetes:
+        if billete in bus.__billetes:
             bus.eliminar_billete(billete)
             bus.set_plazas_vendidas(False)
             bus.set_plazas_libres(False)

@@ -40,7 +40,7 @@ def mostrar_buses():
 
 def comprovar_cliente(nombre_cliente, apellido_cliente):
     for cliente in clientes:
-        if cliente.get_nombre().lower()  == nombre_cliente and cliente.get_apellido().lower() == apellido_cliente:
+        if cliente.getNombre().lower()  == nombre_cliente and cliente.getApellido().lower() == apellido_cliente:
             return cliente
         else:
             print("Cliente no encontrado. Por favor, regístrate primero.")
@@ -61,11 +61,11 @@ while opcion != 0:
                 print("Esta registrado como cliente? (s/n)")
                 respuesta = input().lower()
                 if respuesta == 's':
-                    print("Introduce el nombre y apellido del cliente: ")
                     nombre_cliente = input("Introduce el nombre del cliente: ")
                     apellido_cliente = input("Introduce el apellido del cliente: ")
                     cliente = comprovar_cliente(nombre_cliente.lower(), apellido_cliente.lower())
                     if cliente is None:
+                        print ("El cliente introducido es falso")
                         respuesta = None
                 elif respuesta == 'n':
                     print("Por favor, regístrate primero.")
@@ -81,6 +81,7 @@ while opcion != 0:
             if bus is not None:
                 if Autobuses.comprar_billete(bus, cliente):
                     print("Billete comprado correctamente.")
+                    
                 else:
                     print("No hay plazas disponibles en este bus.")
         else:
@@ -89,11 +90,37 @@ while opcion != 0:
     elif opcion == 3:
         if comprovar_buses():
         #devolucion billete
-         print("Introduce el nombre y apellido del cliente para devolver el billete: ")
+            print("Introduce el nombre y apellido del cliente para devolver el billete: ")
+            nombre_cliente = input("Nombre: ").lower()
+            apellido_cliente = input("Apellido: ").lower()
+            cliente = comprovar_cliente(nombre_cliente, apellido_cliente)
+            if cliente is None:
+                print("Cliente no encontrado")
+            else:
+                billete = cliente.getBillete()
+                bus = billete.getBus()
+                bus_billetes = bus.get_billetes()
+
+                if billete in bus_billetes:
+                    if bus.devolver_billete(billete, bus):
+                        print("Billete devuelto correctamente")
+                    else:
+                        print("No se ha podido devolver el billete")
+                else:
+                    print("No tienes un billete comprado")
+                
+        else:
+            print("No hay buses disponibles. Por favor, añade un bus primero.")  
+
+            
+
     elif opcion == 4:
         if comprovar_buses():
+
         #estado de las plazas
             mostrar_buses()
+        else:
+            print("No hay buses disponibles. Por favor, añade un bus primero.")  
 
 
 

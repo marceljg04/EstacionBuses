@@ -34,10 +34,10 @@ class Clientes:
     #  Metodos
     def asignarBillete(self, billete):
         if self.__billete is not None:
-            raise ValueError(f"El cliente {self.__nombre} ya tiene un billete asignado.")
+            print(f"El cliente {self.__nombre} ya tiene un billete asignado.")
         self.__billete = billete
 
     def devolverBillete(self):
         if self.__billete is None:
-            raise ValueError(f"El cliente {self.__nombre} no tiene billete para devolver.")
+            print(f"El cliente {self.__nombre} no tiene billete para devolver.")
         self.__billete = None
